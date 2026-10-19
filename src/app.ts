@@ -1,3 +1,5 @@
+import "dotenv/config";
+
 import express, {
 
   type Request,
@@ -12,7 +14,11 @@ import cors from "cors";
 
 import mongoose from "mongoose";
 
+import { connectDB } from "./config/db";
+
 import { authRouter } from "./routes/auth";
+
+import { courseRouter } from "./routes/courses";
 
 import { submissionRouter } from "./routes/submissions";
 
@@ -34,7 +40,17 @@ export const app = express();
 
 // ever sees it. Postman is not a browser, so it never needs this.
 
-app.use(cors());
+const ALLOWED_ORIGINS = (process.env.CORS_ORIGIN ?? "")
+
+  .split(",")
+
+  .map((origin) => origin.trim())
+
+  .filter((origin) => origin !== "");
+
+ 
+
+app.use(cors({ origin: ALLOWED_ORIGINS }));
 
  
 
@@ -46,7 +62,13 @@ app.use(cors());
 
 app.use(express.json());
 
- 
+ app.use(async (_req: Request, _res: Response, next: NextFunction) => {
+
+  await connectDB();
+
+  next();
+
+});
 
 app.get("/api/health", (_req: Request, res: Response) => {
 
@@ -57,6 +79,8 @@ app.get("/api/health", (_req: Request, res: Response) => {
  
 
 app.use("/api/auth", authRouter);
+
+app.use("/api/courses", courseRouter);
 
 app.use("/api/submissions", submissionRouter);
 
@@ -128,3 +152,4 @@ app.use(
 
 );
 
+export default app;
