@@ -105,6 +105,13 @@ export type SubmissionDoc = Omit<Submission, "id" | "studentId"> & {
 
 };
 
+export type CourseDoc = Pick<
+
+  Course,
+
+  "code" | "title" | "units" | "semester"
+
+>;
  
 
 // The body a client sends to create one. No id, and no studentId -- the
