@@ -1,0 +1,2 @@
+- Backend: https://itelect4-backend-eight.vercel.app
+- Frontend: https://itelect4-project-it-4-b-ten.vercel.app
