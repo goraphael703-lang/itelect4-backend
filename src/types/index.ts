@@ -118,4 +118,3 @@ export type CourseDoc = Pick<
 
 // server reads that off the token instead of trusting the request.
 
-export type NewSubmissionBody = Pick<Submission, "courseCode" | "repoUrl">;

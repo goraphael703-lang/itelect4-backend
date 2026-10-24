@@ -22,6 +22,8 @@ import { courseRouter } from "./routes/courses";
 
 import { submissionRouter } from "./routes/submissions";
 
+import { aiRouter } from "./routes/ai";
+
  
 
 // This file builds the app and stops. It never opens a port and never
@@ -90,6 +92,8 @@ app.use("/api/submissions", submissionRouter);
 
 // surprise for something that otherwise only ever speaks JSON.
 
+app.use("/api/ai", aiRouter);
+
 app.use((req: Request, res: Response) => {
 
   res.status(404).json({
@@ -151,5 +155,6 @@ app.use(
   },
 
 );
+
 
 export default app;
